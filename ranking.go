@@ -53,7 +53,11 @@ func calculateRanks(data map[string]AddressData) map[int]map[string]AddressData 
 			s = append(s, KeyValue{k, v})
 		}
 		sort.SliceStable(s, func(i, j int) bool {
-			return s[i].Value.ClassCount[class] > s[j].Value.ClassCount[class]
+			if s[i].Value.ClassCount[class] == s[j].Value.ClassCount[class] {
+				return s[i].Value.Name < s[j].Value.Name
+			} else {
+				return s[i].Value.ClassCount[class] > s[j].Value.ClassCount[class]
+			}
 		})
 		for rank, kv := range s {
 			thisval, _ := thisclass[kv.Key]
@@ -61,7 +65,11 @@ func calculateRanks(data map[string]AddressData) map[int]map[string]AddressData 
 			thisclass[kv.Key] = thisval
 		}
 		sort.SliceStable(s, func(i, j int) bool {
-			return s[i].Value.ClassDate[class] > s[j].Value.ClassDate[class]
+			if s[i].Value.ClassDate[class] == s[j].Value.ClassDate[class] {
+				return s[i].Value.Name < s[j].Value.Name
+			} else {
+				return s[i].Value.ClassDate[class] > s[j].Value.ClassDate[class]
+			}
 		})
 		for rank, kv := range s {
 			thisval, _ := thisclass[kv.Key]

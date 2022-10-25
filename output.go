@@ -40,7 +40,11 @@ func saveData(
 			s = append(s, KeyValue{k, v})
 		}
 		sort.SliceStable(s, func(i, j int) bool {
-			return s[i].Value.TotalRank < s[j].Value.TotalRank
+			if s[i].Value.TotalRank == s[j].Value.TotalRank {
+				return s[i].Value.Name < s[j].Value.Name
+			} else {
+				return s[i].Value.TotalRank < s[j].Value.TotalRank
+			}
 		})
 		for _, kv := range s {
 			count++
